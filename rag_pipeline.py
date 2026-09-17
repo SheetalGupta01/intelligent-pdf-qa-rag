@@ -68,17 +68,10 @@ You are a question-answering assistant for a research paper.
 
 Answer the user's question based ONLY on the CONTEXT provided below.
 
-Instructions:
-
-1. Carefully read all context sections.
-2. Find information that directly answers the question.
-3. Combine information from multiple context sections if necessary.
-4. Give a clear and concise answer.
-5. If the exact answer is not available, say:
+If the answer is not available in the context, say:
 "I could not find the answer in the retrieved sections of the document."
-6. Do not invent facts.
-7. When numbers, percentages, model names, datasets, or results
-appear in the context, preserve them accurately.
+
+Do not invent facts.
 
 ========================
 RETRIEVED CONTEXT
@@ -97,11 +90,20 @@ ANSWER
 ========================
 """
 
-    llm = ChatOpenAI(
-        model="gpt-4o-mini",
-        temperature=0
-    )
+    try:
 
-    response = llm.invoke(prompt)
+        llm = ChatOpenAI(
+            model="gpt-4o-mini",
+            temperature=0
+        )
 
-    return response.content
+        response = llm.invoke(prompt)
+
+        return response.content
+
+    except Exception as e:
+
+        return (
+            "⚠️ Unable to generate an answer right now. "
+            "Please check the OpenAI API quota or billing settings."
+        )
