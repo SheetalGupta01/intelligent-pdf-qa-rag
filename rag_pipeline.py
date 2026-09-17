@@ -1,4 +1,3 @@
-```python
 import fitz
 
 from langchain_text_splitters import RecursiveCharacterTextSplitter
@@ -8,7 +7,6 @@ from langchain_openai import ChatOpenAI
 
 
 def extract_text_from_pdf(pdf_path):
-
     document = fitz.open(pdf_path)
 
     text = ""
@@ -22,7 +20,6 @@ def extract_text_from_pdf(pdf_path):
 
 
 def split_text(text):
-
     splitter = RecursiveCharacterTextSplitter(
         chunk_size=800,
         chunk_overlap=100
@@ -34,7 +31,6 @@ def split_text(text):
 
 
 def create_embeddings():
-
     embeddings = HuggingFaceEmbeddings(
         model_name="sentence-transformers/all-MiniLM-L6-v2"
     )
@@ -43,7 +39,6 @@ def create_embeddings():
 
 
 def create_vector_database(chunks, embeddings):
-
     vector_db = FAISS.from_texts(
         chunks,
         embeddings
@@ -53,7 +48,6 @@ def create_vector_database(chunks, embeddings):
 
 
 def retrieve_documents(vector_db, question):
-
     documents = vector_db.similarity_search(
         question,
         k=5
@@ -111,4 +105,3 @@ ANSWER
     response = llm.invoke(prompt)
 
     return response.content
-```
