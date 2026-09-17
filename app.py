@@ -9,6 +9,14 @@ from rag_pipeline import (
     generate_answer
 )
 
+from langchain_openai import ChatOpenAI
+
+llm = ChatOpenAI(
+    model="gpt-4o-mini",
+    temperature=0,
+    api_key=st.secrets["OPENAI_API_KEY"]
+)
+
 st.set_page_config(
     page_title="Intelligent PDF Q&A",
     page_icon="📄",
@@ -114,7 +122,7 @@ if st.session_state.processed:
 
         st.metric(
             "Retrieved Chunks",
-            "Top 3"
+            "Top 5"
         )
 
 if st.session_state.processed:

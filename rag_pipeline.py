@@ -1,9 +1,10 @@
+```python
 import fitz
 
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
-from langchain_ollama import OllamaLLM
+from langchain_openai import ChatOpenAI
 
 
 def extract_text_from_pdf(pdf_path):
@@ -18,6 +19,7 @@ def extract_text_from_pdf(pdf_path):
     document.close()
 
     return text
+
 
 def split_text(text):
 
@@ -39,6 +41,7 @@ def create_embeddings():
 
     return embeddings
 
+
 def create_vector_database(chunks, embeddings):
 
     vector_db = FAISS.from_texts(
@@ -48,6 +51,7 @@ def create_vector_database(chunks, embeddings):
 
     return vector_db
 
+
 def retrieve_documents(vector_db, question):
 
     documents = vector_db.similarity_search(
@@ -56,6 +60,7 @@ def retrieve_documents(vector_db, question):
     )
 
     return documents
+
 
 def generate_answer(documents, question):
 
@@ -76,10 +81,10 @@ Instructions:
 3. Combine information from multiple context sections if necessary.
 4. Give a clear and concise answer.
 5. If the exact answer is not available, say:
-   "I could not find the answer in the retrieved sections of the document."
+"I could not find the answer in the retrieved sections of the document."
 6. Do not invent facts.
 7. When numbers, percentages, model names, datasets, or results
-   appear in the context, preserve them accurately.
+appear in the context, preserve them accurately.
 
 ========================
 RETRIEVED CONTEXT
@@ -98,11 +103,12 @@ ANSWER
 ========================
 """
 
-    llm = OllamaLLM(
-        model="llama3.2:3b",
+    llm = ChatOpenAI(
+        model="gpt-4o-mini",
         temperature=0
     )
 
     response = llm.invoke(prompt)
 
-    return response
+    return response.content
+```

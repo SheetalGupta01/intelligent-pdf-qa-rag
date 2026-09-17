@@ -1,7 +1,10 @@
 streamlit
 PyMuPDF
 langchain
+langchain-core
+langchain-text-splitters
 langchain-community
-langchain-ollama
+langchain-huggingface
+langchain-openai
 sentence-transformers
 faiss-cpu
