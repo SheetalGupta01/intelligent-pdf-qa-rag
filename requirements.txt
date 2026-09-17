@@ -1,8 +1,7 @@
+streamlit
+PyMuPDF
 langchain
 langchain-community
-langchain-openai
-langchain-huggingface
+langchain-ollama
+sentence-transformers
 faiss-cpu
-pymupdf
-streamlit
-python-dotenv
